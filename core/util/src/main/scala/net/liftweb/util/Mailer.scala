@@ -111,9 +111,9 @@ trait Mailer extends SimpleInjector {
   for{
     name <- jndiName
     contextObj <- Helpers.tryo(new InitialContext().lookup("java:comp/env"))
-    context <- Box.asA[Context](contextObj)
+    context <- Box.asA[Object, Context](contextObj)
     sessionObj <- Helpers.tryo(context.lookup(name))
-    session <- Box.asA[Session](sessionObj)
+    session <- Box.asA[Object, Session](sessionObj)
   } yield session
 
   lazy val properties: Properties = {

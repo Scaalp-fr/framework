@@ -47,7 +47,7 @@ object LiftSbtHelpers {
             "-unchecked",
 //            "-Wunused:nowarn", // -W options where introduced in 2.13.
             "-Ywarn-unused:imports,privates,locals",
-            "-target:jvm-1.8"
+            "-release:11",
           ),
 
         scalacOptions in (Compile, doc) ++= List(

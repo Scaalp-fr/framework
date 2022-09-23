@@ -409,7 +409,7 @@ object JsonParser {
     var curMark = -1
     var curMarkSegment = -1
     var eofIsFailure = false
-    private[this] var segments = scala.collection.mutable.ArrayBuffer(segmentPool.apply())
+    private[this] val segments = scala.collection.mutable.ArrayBuffer(segmentPool.apply())
     private[this] var segment: Array[Char] = segments.head.seg
     private[this] var cur = 0 // Pointer which points current parsing location
     private[this] var curSegmentIdx = 0 // Pointer which points current segment
@@ -543,7 +543,7 @@ object JsonParser {
     import java.util.concurrent.atomic.AtomicInteger
 
     private[this] val maxNumOfSegments = 10000
-    private[this] var segmentCount = new AtomicInteger(0)
+    private[this] val segmentCount = new AtomicInteger(0)
     private[this] val segments = new ArrayBlockingQueue[Segment](maxNumOfSegments)
     private[json] def clear = segments.clear
 

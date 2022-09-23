@@ -17,7 +17,6 @@
 package net.liftweb
 package common
 
-import scala.language.existentials
 import scala.reflect.Manifest
 
 import java.util.{Iterator => JavaIterator, ArrayList => JavaArrayList}
@@ -274,7 +273,7 @@ sealed trait BoxTrait extends OptionImplicits {
    * res1: net.liftweb.common.Box[Int] = Full(5)
    * }}}
    */
-  def asA[B](in: T forSome { type T })(implicit m: Manifest[B]): Box[B] = {
+  def asA[T, B](in: T)(implicit m: Manifest[B]): Box[B] = {
     (Box !! in).asA[B]
   }
 }

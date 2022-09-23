@@ -12,12 +12,12 @@ val scala211Version = "2.11.12"
 // Bug in compiler for versions 2.12.13, 14 and 15. StringBuiledr.length()
 // cannot be written with ().
 val scala212Version = "2.12.12"
-val scala213Version = "2.13.7"
+val scala213Version = "2.13.9"
 
 val crossUpTo212 = Seq(scala212Version, scala211Version)
 val crossUpTo213 = scala213Version +: crossUpTo212
 
-scalaVersion       in ThisBuild    := scala212Version
+scalaVersion       in ThisBuild    := scala213Version
 crossScalaVersions in ThisBuild    := crossUpTo212 // default everyone to 2.12 for now
 
 libraryDependencies in ThisBuild ++= Seq(specs2, specs2Matchers, specs2Mock, scalacheck, scalactic, scalatest)
@@ -68,7 +68,8 @@ publishTo in ThisBuild := {
 scmInfo in ThisBuild   := Some(ScmInfo(url("https://github.com/lift/framework"), "scm:git:https://github.com/lift/framework.git"))
 pomExtra in ThisBuild  := Developers.toXml
 
-credentials in ThisBuild += Credentials(BuildPaths.getGlobalSettingsDirectory(state.value, BuildPaths.getGlobalBase(state.value)) / ".credentials")
+publish / skip := true
+//credentials in ThisBuild += Credentials(BuildPaths.getGlobalSettingsDirectory(state.value, BuildPaths.getGlobalBase(state.value)) / ".credentials")
 
 initialize := {
   printLogo(name.value, version.value, scalaVersion.value)
@@ -89,7 +90,8 @@ lazy val framework =
 // Core Projects
 // -------------
 lazy val core: Seq[ProjectReference] =
-  Seq(common, actor, markdown, json, json_scalaz7, json_ext, util)
+//  Seq(common, actor, markdown, json, json_scalaz7, json_ext, util)
+  Seq(common, actor, markdown, json, util)
 
 lazy val common =
   coreProject("common")
@@ -248,7 +250,11 @@ lazy val webkit =
 // Persistence Projects
 // --------------------
 lazy val persistence: Seq[ProjectReference] =
-  Seq(db, proto, mapper, record, squeryl_record, mongodb, mongodb_record)
+//  Seq(db, proto, mapper, record, squeryl_record, mongodb, mongodb_record)
+// - I don't use mapper, record and mongodb.
+// - squeryl_record can't be compiled in 2.13. Code must be updated for new
+//   version of squeryl library first.
+  Seq(db, proto)
 
 lazy val db =
   persistenceProject("db")
